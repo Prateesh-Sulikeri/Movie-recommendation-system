@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieMentor</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for dark theme -->
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        .form-group label {
+            color: #ffffff;
+        }
+
+        .movie-card {
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background-color: #1c2023; /* Dark background */
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .movie-title {
+            color: #ffffff;
+            text-align: center;
+            position: absolute;
+            top: 95%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            margin: 0;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+            width: 100%;
+            box-sizing: border-box;
+            transition: opacity 0.3s ease;
+            opacity: 0; /* Initially hidden */
+        }
+
+        .card:hover .movie-title {
+            opacity: 1; /* Show title on hover */
+        }
+
+        .card-img-top {
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .card-img-top {
+            transform: scale(1.05); /* Enlarge image on hover */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="mt-5">MovieMentor</h1>
+        <form method="POST" action="/" class="mt-5">
+            <div class="form-group">
+                <label for="selected_movie">Select Your Favorite Movie:</label>
+                <input type="text" id="selected_movie" name="selected_movie" class="form-control" list="movies_list">
+                <datalist id="movies_list">
+                    {% for movie in movies['title'].values %}
+                    <option value="{{ movie }}">{{ movie }}</option>
+                    {% endfor %}
+                </datalist>
+            </div>
+            <button type="submit" class="btn btn-primary">Recommend</button>
+        </form>
+        {% if names %}
+        <div class="mt-5">
+            <h2>Recommended Movies:</h2>
+            <div class="row">
+                {% for i in range(3) %}
+                <div class="col-md-4 movie-card">
+                    <div class="card">
+                        <img src="{{ posters[i] }}" alt="{{ names[i] }}" class="card-img-top">
+                        <h5 class="card-title movie-title">{{ names[i] }}</h5>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Bootstrap JS and dependencies (jQuery and Popper.js) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
