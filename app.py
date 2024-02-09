@@ -37,5 +37,4 @@ def index():
     return render_template('index.html', names=None, posters=None, movies=movies)
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+
